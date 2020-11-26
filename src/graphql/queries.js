@@ -1,47 +1,43 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const syncPosts = /* GraphQL */ `
-  query SyncPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPosts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
+export const getPost = `query GetPost($id: ID!) {
+  getPost(id: $id) {
+    id
+    postOwnerId
+    postOwnerUsername
+    postTitle
+    postBody
+    createdAt
+    comments {
       items {
         id
-        postOwnerId
-        postOwnerUsername
-        postTitle
-        postBody
+        commentOwnerId
+        commentOwnerUsername
+        content
         createdAt
-        comments {
-          nextToken
-          startedAt
-        }
-        likes {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
       }
       nextToken
-      startedAt
+    }
+    likes {
+      items {
+        id
+        numberLikes
+        likeOwnerId
+        likeOwnerUsername
+      }
+      nextToken
     }
   }
+}
 `;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
+export const listPosts = `query ListPosts(
+  $filter: ModelPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       postOwnerId
       postOwnerUsername
@@ -50,18 +46,12 @@ export const getPost = /* GraphQL */ `
       createdAt
       comments {
         items {
-          id
-          commentOwnerId
-          commentOwnerUsername
-          content
-          createdAt
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+           id
+           commentOwnerId
+           commentOwnerUsername
+           content
+           createdAt
         }
-        nextToken
-        startedAt
       }
       likes {
         items {
@@ -69,98 +59,44 @@ export const getPost = /* GraphQL */ `
           numberLikes
           likeOwnerId
           likeOwnerUsername
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
         }
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getComment = `query GetComment($id: ID!) {
+  getComment(id: $id) {
+    id
+    commentOwnerId
+    commentOwnerUsername
+    post {
+      id
+      postOwnerId
+      postOwnerUsername
+      postTitle
+      postBody
+      createdAt
+      comments {
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      updatedAt
-    }
-  }
-`;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        postOwnerId
-        postOwnerUsername
-        postTitle
-        postBody
-        createdAt
-        comments {
-          nextToken
-          startedAt
-        }
-        likes {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+      likes {
+        nextToken
       }
-      nextToken
-      startedAt
     }
+    content
+    createdAt
   }
+}
 `;
-export const syncComments = /* GraphQL */ `
-  query SyncComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncComments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        commentOwnerId
-        commentOwnerUsername
-        post {
-          id
-          postOwnerId
-          postOwnerUsername
-          postTitle
-          postBody
-          createdAt
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        content
-        createdAt
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
+export const listComments = `query ListComments(
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       commentOwnerId
       commentOwnerUsername
@@ -171,107 +107,44 @@ export const getComment = /* GraphQL */ `
         postTitle
         postBody
         createdAt
-        comments {
-          nextToken
-          startedAt
-        }
-        likes {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
       }
       content
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
-      updatedAt
     }
+    nextToken
   }
+}
 `;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        commentOwnerId
-        commentOwnerUsername
-        post {
-          id
-          postOwnerId
-          postOwnerUsername
-          postTitle
-          postBody
-          createdAt
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        content
-        createdAt
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+export const getLike = `query GetLike($id: ID!) {
+  getLike(id: $id) {
+    id
+    numberLikes
+    likeOwnerId
+    likeOwnerUsername
+    post {
+      id
+      postOwnerId
+      postOwnerUsername
+      postTitle
+      postBody
+      createdAt
+      comments {
+        nextToken
       }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncLikes = /* GraphQL */ `
-  query SyncLikes(
-    $filter: ModelLikeFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncLikes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        numberLikes
-        likeOwnerId
-        likeOwnerUsername
-        post {
-          id
-          postOwnerId
-          postOwnerUsername
-          postTitle
-          postBody
-          createdAt
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+      likes {
+        nextToken
       }
-      nextToken
-      startedAt
     }
   }
+}
 `;
-export const getLike = /* GraphQL */ `
-  query GetLike($id: ID!) {
-    getLike(id: $id) {
+export const listLikes = `query ListLikes(
+  $filter: ModelLikeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       numberLikes
       likeOwnerId
@@ -283,59 +156,9 @@ export const getLike = /* GraphQL */ `
         postTitle
         postBody
         createdAt
-        comments {
-          nextToken
-          startedAt
-        }
-        likes {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
     }
+    nextToken
   }
-`;
-export const listLikes = /* GraphQL */ `
-  query ListLikes(
-    $filter: ModelLikeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        numberLikes
-        likeOwnerId
-        likeOwnerUsername
-        post {
-          id
-          postOwnerId
-          postOwnerUsername
-          postTitle
-          postBody
-          createdAt
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
+}
 `;
